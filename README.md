@@ -1,8 +1,3 @@
----
-title: quarkus with gradle
-what: rest client
-date: nov 2019
----
 
 Quarkus Rest Client 
 ===================
