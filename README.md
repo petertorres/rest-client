@@ -156,8 +156,6 @@ $ ./gradlew addExtension --extensions="jdbc,agroal,non-exist-ent"
 $ ./gradlew addExtension --extensions="hibernate*"
 ```
 
-#### Building a thin jar
-
 ### Gradle 
 
 #### `build.gradle` addition to show details when running tests
