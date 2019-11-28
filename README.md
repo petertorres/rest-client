@@ -50,9 +50,16 @@ $ ./gradlew cleanTest test
 $ ./gradlew quarkusBuild
 ```
 
-#### Building an uber(fat) jar:
+#### Running the (thin) jar:
+
+```bash
+$ java -jar build/rest-client-1.0.0-SNAPSHOT-runner.jar
+```
+
+#### Building and run an uber(fat) jar:
 ```bash
 $ ./gradlew quarkusBuild --uber-jar
+$ java -jar build/rest-client-1.0.0-SNAPSHOT-runner.jar
 ```
 
 #### Building as a native binary:
