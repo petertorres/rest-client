@@ -156,6 +156,26 @@ $ ./gradlew addExtension --extensions="jdbc,agroal,non-exist-ent"
 $ ./gradlew addExtension --extensions="hibernate*"
 ```
 
+### Known Issues
+
+- "These dependencies are not recommended" - Open (quarkus) [issue][issuq]  
+- "No instances of java.{SOMETHING} are allowed..." - Open (native-image) [issue][issun]
+
+### MacOS
+
+You may encounter an error when building native applications on MacOS about 
+a missing `xcrun` path even though the binary may be found at `/usr/bin/xcrun`.
+
+To resolve the issue, install the xcode CLI tools.
+
+```bash
+$ xcode-select --install
+```
+
+### Tips for Writing Native Applications
+
+[Tips][qtips]
+
 ### Gradle 
 
 #### `build.gradle` addition to show details when running tests
@@ -186,3 +206,6 @@ This project is not licensed.
 [cfprp]:https://quarkus.io/guides/config#configuration-profiles
 [cfprs]:https://quarkus.io/guides/config#using-configproperties
 [micro]:https://github.com/eclipse/microprofile-config/blob/master/spec/src/main/asciidoc/converters.asciidoc
+[qtips]:https://quarkus.io/guides/writing-native-applications-tips
+[issuq]:https://github.com/quarkusio/quarkus/issues/4960
+[issun]:https://github.com/oracle/graal/issues/1074
