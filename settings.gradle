@@ -1,0 +1,19 @@
+pluginManagement {
+  plugins {
+    id 'io.quarkus' version "${quarkusVersion}"
+  }
+    //repositories {
+    //    mavenLocal()
+    //    mavenCentral()
+    //    gradlePluginPortal()
+    //}
+    //resolutionStrategy {
+    //    eachPlugin {
+    //        if (requested.id.id == 'io.quarkus') {
+    //            useModule("io.quarkus:quarkus-gradle-plugin:1.0.0.CR2")
+    //        }
+    //    }
+    //}
+}
+
+rootProject.name='rest-client'
