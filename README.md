@@ -61,11 +61,9 @@ $ ./gradlew quarkusBuild --uber-jar
 
 >Using [sdkman](https://sdkman.io):
 
->```bash
- $ sdk install java 19.3.0.r8-grl
- $ gu install native-image
- $ export GRAALVM_HOME=~/.sdkman/candidates/java/19.3.0.r8-grl
->``` 
+> `$ sdk install java 19.3.0.r8-grl`  
+> `$ gu install native-image`  
+> `$ export GRAALVM_HOME=~/.sdkman/candidates/java/19.3.0.r8-grl`  
 
 ```bash
 $ ./gradlew build
