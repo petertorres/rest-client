@@ -36,9 +36,13 @@ jobs:
           command: |
             eval TEMP_KEY=`which javac`
             echo "JAVAC ENV from eval: $TEMP_KEY"
+            echo "export JAV_PATH=`which javac`" >> $BASH_ENV
+            echo "JAV_PATH ENV from export: $JAV_PATH"
       - run:
           name: Read shell variable
-          command: echo "JAVAC ENV from variable $TEMP_KEY"
+          command: |
+            echo "JAVAC ENV from variable $TEMP_KEY"
+            echo "JAV_PATH ENV from variable $JAV_PATH"
       - run: gradle dependencies
 
       - save_cache:
