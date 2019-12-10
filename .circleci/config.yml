@@ -32,10 +32,10 @@ jobs:
             - v1-dependencies-
 
       - run:
-        name: Set up shell variable
-        command: |
-          eval TEMP_KEY=`which javac`
-          echo "JAVAC ENV from eval: $TEMP_KEY"
+          name: Set up shell variable
+          command: |
+            eval TEMP_KEY=`which javac`
+            echo "JAVAC ENV from eval: $TEMP_KEY"
       - run:
           name: Read shell variable
           command: echo "JAVAC ENV from variable $TEMP_KEY"
