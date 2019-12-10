@@ -37,8 +37,8 @@ jobs:
           eval TEMP_KEY=`which javac`
           echo "JAVAC ENV from eval: $TEMP_KEY"
       - run:
-        name: Read shell variable
-        command: echo "JAVAC ENV from variable $TEMP_KEY"
+          name: Read shell variable
+          command: echo "JAVAC ENV from variable $TEMP_KEY"
       - run: gradle dependencies
 
       - save_cache:
