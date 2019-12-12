@@ -23,8 +23,8 @@ commands:
       - run:
           name: Eval, echo & concat params to a string
           command: |
-            eval echo \$`echo << parameters.environment >> | tr 'a-z' 'A-Z'`_GCP_KEY >> $BASH_ENV
-            set | grep -i "gcp_key"
+            eval GOOGLE_APPLICATION_CREDENTIALS=\$`echo << parameters.environment >> | tr 'a-z' 'A-Z'`_GCP_KEY
+            echo $GOOGLE_APPLICATION_CREDENTIALS
 
 jobs:
   build:
