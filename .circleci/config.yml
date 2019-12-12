@@ -1,4 +1,6 @@
 # https://circleci.com/docs/2.0/language-java/ for more details
+# Note: The parameters declaration is available in configuration version 2.1 and later.
+# https://circleci.com/docs/2.0/reusing-config/#using-the-parameters-declaration
 version: 2.1
 
 executors:
@@ -6,13 +8,13 @@ executors:
     docker:
       - image: circleci/openjdk:8-jdk
     working_directory: ~/repo
-    #environment:
-    #  # Customize the JVM maximum heap limit
-    #  JVM_OPTS: -Xmx3200m
-    #  TERM: dumb
+    environment:
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
 
 commands:
-  authy:
+  eval-echo-env:
     parameters:
       environment:
         type: enum
@@ -36,10 +38,10 @@ jobs:
 
     #working_directory: ~/repo
 
-    environment:
-      # Customize the JVM maximum heap limit
-      JVM_OPTS: -Xmx3200m
-      TERM: dumb
+    #environment:
+    #  # Customize the JVM maximum heap limit
+    #  JVM_OPTS: -Xmx3200m
+    #  TERM: dumb
 
     parameters:
      environment:
@@ -48,7 +50,7 @@ jobs:
    
     steps:
       - checkout
-      - authy:
+      - eval-echo-env:
           environment: << parameters.environment >>
 
       # Download and cache dependencies
@@ -84,3 +86,4 @@ workflows:
   build-test:
     jobs:
       - build
+        environment: dev
