@@ -22,7 +22,9 @@ commands:
     steps:
       - run:
           name: Eval, echo & concat params to a string
-          command: eval echo \$`echo << parameters.environment >> | tr 'a-z' 'A-Z'`_GCP_KEY | echo-
+          command: |
+            eval echo \$`echo << parameters.environment >> | tr 'a-z' 'A-Z'`_GCP_KEY >> $BASH_ENV
+            set | grep -i "gcp_key"
 
 jobs:
   build:
