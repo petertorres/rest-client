@@ -86,4 +86,4 @@ workflows:
   build-test:
     jobs:
       - build:
-        environment: dev
+          environment: dev
