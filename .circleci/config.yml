@@ -15,6 +15,8 @@ executors:
 
 commands:
   eval-echo-env:
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /tmp/gcp_key.json
     parameters:
       environment:
         type: enum
@@ -23,8 +25,9 @@ commands:
       - run:
           name: Eval, echo & concat params to a string
           command: |
-            eval GOOGLE_APPLICATION_CREDENTIALS=\$`echo << parameters.environment >> | tr 'a-z' 'A-Z'`_GCP_KEY
-            echo $GOOGLE_APPLICATION_CREDENTIALS
+            eval echo \$`echo << parameters.environment >> | tr 'a-z' 'A-Z'`_GCP_KEY >> $BASH_ENV
+            set | grep -i "gcp_key"
+            set | grep -i "google"
 
 jobs:
   build:
