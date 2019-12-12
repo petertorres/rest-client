@@ -24,10 +24,6 @@ commands:
 
 jobs:
   build:
-    parameters:
-      environment:
-        type: enum
-        enum: ["dev", "staging", "prod"]
     executor: openjdk
     #docker:
     #  # specify the version you desire here
@@ -44,7 +40,12 @@ jobs:
     #  # Customize the JVM maximum heap limit
     #  JVM_OPTS: -Xmx3200m
     #  TERM: dumb
-    
+
+    parameters:
+     environment:
+       type: enum
+       enum: ["dev", "staging", "prod"]
+   
     steps:
       - checkout
       - authy:
