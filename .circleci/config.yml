@@ -26,11 +26,12 @@ commands:
           name: Eval, echo & concat params to a string
           command: |
             #eval echo \$`echo << parameters.environment >> | tr 'a-z' 'A-Z'`_GCP_KEY >> $BASH_ENV
-            eval echo \$`echo << parameters.environment >> | tr 'a-z' 'A-Z'_GCP_KEY > /tmp/gcp-key.json
+            eval echo \$`echo << parameters.environment >> | tr 'a-z' 'A-Z'`_GCP_KEY > /tmp/gcp-key.json
             echo 'export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp-key.json' >> $BASH_ENV
             source $BASH_ENV 
             set | grep -i "gcp_key"
             set | grep -i "google"
+            echo $GOOGLE_APPLICATION_CREDENTIALS
             cat $GOOGLE_APPLICATION_CREDENTIALS
 
 jobs:
