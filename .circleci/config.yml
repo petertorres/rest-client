@@ -28,14 +28,14 @@ jobs:
       JVM_OPTS: -Xmx3200m
       TERM: dumb
 
-      parameters:
-        environment:
-          type: enum
-          enum: ["dev", "staging", "prod"]
+      #parameters:
+      #  environment:
+      #    type: enum
+      #    enum: ["dev", "staging", "prod"]
 
     steps:
       - checkout
-      - authy
+      - authy:
           environment: << parameters.environment >>
 
       # Download and cache dependencies
