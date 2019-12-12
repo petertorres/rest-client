@@ -1,5 +1,5 @@
 # https://circleci.com/docs/2.0/language-java/ for more details
-version: 2
+version: 2.1
 commands:
   authy:
     parameters:
@@ -28,10 +28,10 @@ jobs:
       JVM_OPTS: -Xmx3200m
       TERM: dumb
 
-      #parameters:
-      #  environment:
-      #    type: enum
-      #    enum: ["dev", "staging", "prod"]
+      parameters:
+        environment:
+          type: enum
+          enum: ["dev", "staging", "prod"]
 
     steps:
       - checkout
