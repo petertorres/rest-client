@@ -15,8 +15,8 @@ executors:
 
 commands:
   eval-echo-env:
-    environment:
-      GOOGLE_APPLICATION_CREDENTIALS: /tmp/gcp_key.json
+    #environment:
+    #  GOOGLE_APPLICATION_CREDENTIALS: /tmp/gcp_key.json
     parameters:
       environment:
         type: enum
