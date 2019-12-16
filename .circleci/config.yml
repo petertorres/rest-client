@@ -33,7 +33,7 @@ commands:
             set | grep -i "gcp_key"
             set | grep -i "google"
             echo $GOOGLE_APPLICATION_CREDENTIALS
-            cat $GOOGLE_APPLICATION_CREDENTIALS\n
+            cat $GOOGLE_APPLICATION_CREDENTIALS
             echo $BASH_ENV | grep -i "google"
 
 jobs:
