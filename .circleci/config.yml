@@ -1,6 +1,3 @@
-# https://circleci.com/docs/2.0/language-java/ for more details
-# Note: The parameters declaration is available in configuration version 2.1 and later.
-# https://circleci.com/docs/2.0/reusing-config/#using-the-parameters-declaration
 version: 2.1
 
 executors:
@@ -15,8 +12,6 @@ executors:
 
 commands:
   eval-echo-env:
-    #environment:
-    #  GOOGLE_APPLICATION_CREDENTIALS: /tmp/gcp_key.json
     parameters:
       environment:
         type: enum
@@ -38,22 +33,6 @@ commands:
 jobs:
   build:
     executor: openjdk
-    #docker:
-    #  # specify the version you desire here
-    #  - image: circleci/openjdk:8-jdk
-
-    #  # Specify service dependencies here if necessary
-    #  # CircleCI maintains a library of pre-built images
-    #  # documented at https://circleci.com/docs/2.0/circleci-images/
-    #  # - image: circleci/postgres:9.4
-
-    #working_directory: ~/repo
-
-    #environment:
-    #  # Customize the JVM maximum heap limit
-    #  JVM_OPTS: -Xmx3200m
-    #  TERM: dumb
-
     parameters:
      environment:
        type: enum
@@ -71,20 +50,20 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run:
-          name: Set up shell variable
-          command: |
-            eval TEMP_KEY=`which javac`
-            echo "JAVAC ENV from eval: $TEMP_KEY"
-            echo "export JAV_PATH=$(which javac | tr 'a-z' 'A-Z')_AND_STUFF" >> $BASH_ENV
-            echo "JAV_PATH before sourcing BASH_ENV: $JAV_PATH"
-            source $BASH_ENV
-            echo "JAV_PATH ENV from export: $JAV_PATH"
-      - run:
-          name: Read shell variable
-          command: |
-            echo "JAVAC ENV from variable $TEMP_KEY"
-            echo "JAV_PATH ENV from variable $JAV_PATH"
+      #- run:
+      #    name: Set up shell variable
+      #    command: |
+      #      eval TEMP_KEY=`which javac`
+      #      echo "JAVAC ENV from eval: $TEMP_KEY"
+      #      echo "export JAV_PATH=$(which javac | tr 'a-z' 'A-Z')_AND_STUFF" >> $BASH_ENV
+      #      echo "JAV_PATH before sourcing BASH_ENV: $JAV_PATH"
+      #      source $BASH_ENV
+      #      echo "JAV_PATH ENV from export: $JAV_PATH"
+      #- run:
+      #    name: Read shell variable
+      #    command: |
+      #      echo "JAVAC ENV from variable $TEMP_KEY"
+      #      echo "JAV_PATH ENV from variable $JAV_PATH"
       - run: gradle dependencies
 
       - save_cache:
@@ -92,14 +71,30 @@ jobs:
             - ~/.gradlew
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
+  test:
+    parameters:
+      environment:
+        type: enum
+        enum: ["dev", "staging", "prod"]
+    executor: openjdk
+    steps:
+      - checkout
       # run tests!
       - run: ./gradlew cleanTest test
+
 workflows:
   build-test:
     jobs:
-      - build
+      - build:
+          name: build
+          environment: dev
       - test:
-          name: build-test
+          name: test
           environment: dev
           requires:
               - build
+
+# https://circleci.com/docs/2.0/language-java/ for more details
+# Note: The parameters declaration is available in configuration version 2.1 and later.
+# https://circleci.com/docs/2.0/reusing-config/#using-the-parameters-declaration
+
