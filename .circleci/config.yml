@@ -76,6 +76,7 @@ jobs:
             eval TEMP_KEY=`which javac`
             echo "JAVAC ENV from eval: $TEMP_KEY"
             echo "export JAV_PATH=$(which javac | tr 'a-z' 'A-Z')_AND_STUFF" >> $BASH_ENV
+            echo "JAV_PATH before sourcing BASH_ENV: $JAV_PATH"
             source $BASH_ENV
             echo "JAV_PATH ENV from export: $JAV_PATH"
       - run:
