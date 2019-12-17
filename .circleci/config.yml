@@ -117,7 +117,7 @@ workflows:
           name: prod-acceptance-test
           environment: prod
           requires:
-              - release-to-dev
+              - request-approval
       - release-to-prod:
           requires:
               - prod-acceptance-test
