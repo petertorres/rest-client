@@ -102,10 +102,10 @@ workflows:
           requires:
             - build
       - test:
+          name: deploy-to-prod
           environment: prod
-      - deploy-to-prod:
           requires:
-            - test
+            - request-approval
 
 # https://circleci.com/docs/2.0/language-java/ for more details
 # Note: The parameters declaration is available in configuration version 2.1 and later.
