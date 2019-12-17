@@ -96,7 +96,7 @@ workflows:
   release-to-prod:
     jobs:
       - request-approval:
-          type approval
+          type: approval
           requires:
             - build
       - deploy-to-prod:
