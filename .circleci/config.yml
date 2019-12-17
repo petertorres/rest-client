@@ -95,10 +95,12 @@ workflows:
               - build
   release-to-prod:
     jobs:
+      - build
       - request-approval:
           type: approval
           requires:
             - build
+      - test
       - deploy-to-prod:
           requires:
             - test
