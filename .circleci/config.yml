@@ -86,7 +86,7 @@ jobs:
   release:
     executor: openjdk
     steps:
-      - run: echo "MESSAGE: $success"
+      - run: echo "MESSAGE $success"
 
 workflows:
   build-test-and-approval-deploy:
