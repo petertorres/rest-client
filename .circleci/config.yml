@@ -93,8 +93,18 @@ workflows:
           environment: dev
           requires:
               - build
+  release-to-prod:
+    jobs:
+      - request-approval:
+          type approval
+          requires:
+            - build
+      - deploy-to-prod:
+          requires:
+            - test
 
 # https://circleci.com/docs/2.0/language-java/ for more details
 # Note: The parameters declaration is available in configuration version 2.1 and later.
 # https://circleci.com/docs/2.0/reusing-config/#using-the-parameters-declaration
+# https://circleci.com/blog/manual-job-approval-and-scheduled-workflow-runs/
 
