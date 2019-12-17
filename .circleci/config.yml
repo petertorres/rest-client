@@ -81,31 +81,41 @@ jobs:
       - checkout
       # run tests!
       - run: ./gradlew cleanTest test
+      - run: echo "export success=Released to << parameters.environment >>" >> $BASH_ENV
+
+  release-to-prod:
+    executor: openjdk
+    steps:
+      - run: echo $success
 
 workflows:
-  build-test:
+  build-test-and-approval-deploy:
     jobs:
       - build:
-          name: build
+          name: dev-build
           environment: dev
       - test:
-          name: test
+          name: dev-test
           environment: dev
           requires:
-              - build
-  release-to-prod:
-    jobs:
-      - build:
-          environment: prod
-      - request-approval:
+              - dev-build
+      - dev:
+          name: release-to-dev
+          requires:
+              - dev-test
+      - pre-prod-hold:
+          name: request-approval
           type: approval
           requires:
-            - build
+            - release-to-dev
       - test:
-          name: deploy-to-prod
+          name: prod-acceptance-test
           environment: prod
           requires:
-            - request-approval
+              - release-to-dev
+      - release-to-prod:
+          requires:
+              - prod-acceptance-test
 
 # https://circleci.com/docs/2.0/language-java/ for more details
 # Note: The parameters declaration is available in configuration version 2.1 and later.
