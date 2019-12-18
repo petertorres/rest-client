@@ -224,6 +224,7 @@ org.peteness.restclient.CountriesResourceTest > testCountryNameAsyncEndpoint() P
 
 This project is not licensed.
 
+
 [quark]:https://quarkus.io/
 [restc]:https://restcountries.eu/
 [gradl]:https://quarkus.io/guides/gradle-tooling
