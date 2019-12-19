@@ -1,5 +1,20 @@
 version: 2.1
 
+default: &parameters.environment
+  parameters:
+    environment:
+      type: enum
+      enum: ["dev", "staging", "prod"]
+
+default: &environments
+  environment:
+    type: enum
+    enum: ["dev", "staging", "prod"]
+
+default: &enum.envs
+  type: enum
+  enum: ["dev", "staging", "prod"]
+
 executors:
   openjdk:
     docker:
@@ -12,10 +27,13 @@ executors:
 
 commands:
   eval-echo-env:
-    parameters:
-      environment:
-        type: enum
-        enum: ["dev", "staging", "prod"]
+    #parameters:
+    #  environment:
+    #    type: enum
+    #    enum: ["dev", "staging", "prod"]
+    <<: *parameters.environment
+    #<<: *environments
+    #<<: *enum.envs
     steps:
       - run:
           name: Eval, echo & concat params to a string
@@ -81,7 +99,7 @@ jobs:
       - checkout
       # run tests!
       - run: ./gradlew cleanTest test
-      - run: echo "export success=$(echo 'Released to << parameters.environment >>')" >> $BASH_ENV
+      - run: echo "Released to << parameters.environment >>"
       
   release:
     executor: openjdk
