@@ -81,7 +81,7 @@ jobs:
       - checkout
       # run tests!
       - run: ./gradlew cleanTest test
-      - run: echo "export success=`Released to << parameters.environment >>`" >> $BASH_ENV
+      - run: echo "export success=$(echo 'Released to << parameters.environment >>'" >> $BASH_ENV
       
   release:
     executor: openjdk
