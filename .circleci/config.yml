@@ -1,6 +1,6 @@
 version: 2.1
 
-default: &parameters.environment
+default: &parameters-environment
   parameters:
     environment:
       type: enum
@@ -11,7 +11,7 @@ default: &environments
     type: enum
     enum: ["dev", "staging", "prod"]
 
-default: &enum.envs
+default: &enum-envs
   type: enum
   enum: ["dev", "staging", "prod"]
 
@@ -31,9 +31,9 @@ commands:
     #  environment:
     #    type: enum
     #    enum: ["dev", "staging", "prod"]
-    <<: *parameters.environment
+    <<: *parameters-environment
     #<<: *environments
-    #<<: *enum.envs
+    #<<: *enum-envs
     steps:
       - run:
           name: Eval, echo & concat params to a string
