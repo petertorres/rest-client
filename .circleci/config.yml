@@ -51,10 +51,13 @@ commands:
 jobs:
   build:
     executor: openjdk
-    parameters:
-     environment:
-       type: enum
-       enum: ["dev", "staging", "prod"]
+    #parameters:
+    # environment:
+    #   type: enum
+    #   enum: ["dev", "staging", "prod"]
+    <<: *parameters-environment
+    #<<: *environment
+    #<<: *enum-envs
    
     steps:
       - checkout
@@ -90,10 +93,14 @@ jobs:
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
   test:
-    parameters:
-      environment:
-        type: enum
-        enum: ["dev", "staging", "prod"]
+    #parameters:
+    #  environment:
+    #    type: enum
+    #    enum: ["dev", "staging", "prod"]
+    <<: *parameters-environment
+    #<<: *environment
+    #<<: *enum-envs
+    
     executor: openjdk
     steps:
       - checkout
