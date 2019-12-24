@@ -110,8 +110,9 @@ jobs:
       
   release:
     executor: openjdk
+    <<: *parameters-environment
     steps:
-      - run: echo "MESSAGE $success"
+      - run: echo "PLACEHOLDER for release to << parameters.environment >>"
 
 workflows:
   build-test-and-approval-deploy:
@@ -126,6 +127,7 @@ workflows:
               - dev-build
       - release:
           name: release-to-dev
+          environment: dev
           requires:
               - dev-test
       - pre-prod-hold:
@@ -140,6 +142,7 @@ workflows:
               - request-approval
       - release:
           name: release-to-prod
+          environment: prod
           requires:
               - prod-acceptance-test
 
