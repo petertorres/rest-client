@@ -123,9 +123,10 @@ workflows:
             branches:
               only:
                 - master
-    - build
-    - test
-    - release
+    jobs:
+      - build
+      - test
+      - release
 
   build-test-and-approval-deploy:
     jobs:
