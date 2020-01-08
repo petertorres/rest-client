@@ -118,11 +118,11 @@ workflows:
   build-on-schedule:
     triggers:
       - schedule:
-          cron: "20 * * * *"
+          cron: "5 * * * *"
           filters:
             branches:
               only:
-                #- master
+                - master
     jobs:
       - build:
           environment: dev
