@@ -124,9 +124,12 @@ workflows:
               only:
                 - master
     jobs:
-      - build
-      - test
-      - release
+      - build:
+          environment: dev
+      - test:
+          environment: dev
+      - release:
+          environment: dev
 
   build-test-and-approval-deploy:
     jobs:
