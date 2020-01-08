@@ -115,6 +115,18 @@ jobs:
       - run: echo "PLACEHOLDER for release to << parameters.environment >>"
 
 workflows:
+  build-on-schedule:
+    triggers:
+      - schedule:
+          cron: "15 15 8 1 *"
+          filters:
+            branches:
+              only:
+                - master
+    - build
+    - test
+    - release
+
   build-test-and-approval-deploy:
     jobs:
       - build:
