@@ -122,7 +122,7 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                #- master
     jobs:
       - build:
           environment: dev
@@ -131,36 +131,36 @@ workflows:
       - release:
           environment: dev
 
-  #build-test-and-approval-deploy:
-  #  jobs:
-  #    - build:
-  #        name: dev-build
-  #        environment: dev
-  #    - test:
-  #        name: dev-test
-  #        environment: dev
-  #        requires:
-  #            - dev-build
-  #    - release:
-  #        name: release-to-dev
-  #        environment: dev
-  #        requires:
-  #            - dev-test
-  #    - pre-prod-hold:
-  #        name: request-approval
-  #        type: approval
-  #        requires:
-  #          - release-to-dev
-  #    - test:
-  #        name: prod-acceptance-test
-  #        environment: prod
-  #        requires:
-  #            - request-approval
-  #    - release:
-  #        name: release-to-prod
-  #        environment: prod
-  #        requires:
-  #            - prod-acceptance-test
+  build-test-and-approval-deploy:
+    jobs:
+      - build:
+          name: dev-build
+          environment: dev
+      - test:
+          name: dev-test
+          environment: dev
+          requires:
+              - dev-build
+      - release:
+          name: release-to-dev
+          environment: dev
+          requires:
+              - dev-test
+      - pre-prod-hold:
+          name: request-approval
+          type: approval
+          requires:
+            - release-to-dev
+      - test:
+          name: prod-acceptance-test
+          environment: prod
+          requires:
+              - request-approval
+      - release:
+          name: release-to-prod
+          environment: prod
+          requires:
+              - prod-acceptance-test
 
 # https://circleci.com/docs/2.0/language-java/ for more details
 # Note: The parameters declaration is available in configuration version 2.1 and later.
