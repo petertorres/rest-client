@@ -149,7 +149,7 @@ workflows:
   build-on-schedule:
     triggers:
       - schedule:
-          cron: "25 * * * *"
+          cron: "5 * * * *"
           filters:
             branches:
               only:
