@@ -114,13 +114,6 @@ jobs:
     steps:
       - run: echo "PLACEHOLDER for release to << parameters.environment >>"
 
-  temptemp:
-    docker:
-      - image: circleci/node:10.15
-    working_directory: ~/repo
-    steps:
-      - run: "echo foo"
-
 workflows:
   version: 2
   build-test-and-approval-deploy:
@@ -153,31 +146,21 @@ workflows:
           environment: prod
           requires:
               - prod-acceptance-test
-  scheduled-workflow:
+  build-on-schedule:
     triggers:
       - schedule:
-          cron: "* * * * *"
+          cron: "25 * * * *"
           filters:
             branches:
               only:
                 - master
     jobs:
-      - temptemp
-#  build-on-schedule:
-#    triggers:
-#      - schedule:
-#          cron: "25 * * * *"
-#          filters:
-#            branches:
-#              only:
-#                - master
-#    jobs:
-#      - build:
-#          environment: dev
-#      - test:
-#          environment: dev
-#      - release:
-#          environment: dev
+      - build:
+          environment: dev
+      - test:
+          environment: dev
+      - release:
+          environment: dev
 
 # https://circleci.com/docs/2.0/language-java/ for more details
 # Note: The parameters declaration is available in configuration version 2.1 and later.
