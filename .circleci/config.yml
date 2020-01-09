@@ -115,12 +115,11 @@ jobs:
       - run: echo "PLACEHOLDER for release to << parameters.environment >>"
 
   temptemp:
-    node:
-      docker:
-        - image: circleci/node:10.15
-      working_directory: ~/repo
-      steps:
-        - run: "echo foo"
+    docker:
+      - image: circleci/node:10.15
+    working_directory: ~/repo
+    steps:
+      - run: "echo foo"
 
 workflows:
   version: 2
