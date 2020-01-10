@@ -131,21 +131,21 @@ workflows:
           environment: dev
           requires:
               - dev-test
-      - pre-prod-hold:
-          name: request-approval
-          type: approval
-          requires:
-            - release-to-dev
-      - test:
-          name: prod-acceptance-test
-          environment: prod
-          requires:
-              - request-approval
-      - release:
-          name: release-to-prod
-          environment: prod
-          requires:
-              - prod-acceptance-test
+      #- pre-prod-hold:
+      #    name: request-approval
+      #    type: approval
+      #    requires:
+      #      - release-to-dev
+      #- test:
+      #    name: prod-acceptance-test
+      #    environment: prod
+      #    requires:
+      #        - request-approval
+      #- release:
+      #    name: release-to-prod
+      #    environment: prod
+      #    requires:
+      #        - prod-acceptance-test
   #build-on-schedule:
   #  triggers:
   #    - schedule:
