@@ -146,21 +146,21 @@ workflows:
           environment: prod
           requires:
               - prod-acceptance-test
-  build-on-schedule:
-    triggers:
-      - schedule:
-          cron: "5 * * * *"
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-      - build:
-          environment: dev
-      - test:
-          environment: dev
-      - release:
-          environment: dev
+  #build-on-schedule:
+  #  triggers:
+  #    - schedule:
+  #        cron: "5 * * * *"
+  #        filters:
+  #          branches:
+  #            only:
+  #              - master
+  #  jobs:
+  #    - build:
+  #        environment: dev
+  #    - test:
+  #        environment: dev
+  #    - release:
+  #        environment: dev
 
 # https://circleci.com/docs/2.0/language-java/ for more details
 # Note: The parameters declaration is available in configuration version 2.1 and later.
