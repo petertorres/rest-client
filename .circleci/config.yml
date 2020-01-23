@@ -56,7 +56,7 @@ commands:
       - run:
           name: authing to gcp
           #command: eval echo \$`echo << parameters.environment >> | tr 'a-z' 'A-Z'`_GCP_KEY | gcloud auth activate-service-account --key-file=-
-          command: gcloud auth activate-service-account-key-file=$DEV_GCP_KEY
+          command: gcloud auth activate-service-account --key-file=$DEV_GCP_KEY
   gcloud-key:
     steps:
       - run:
