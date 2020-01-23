@@ -112,6 +112,7 @@ jobs:
     executor: gcpsdk
     <<: *parameters-environment
     steps:
+      - checkout
       - attach_workspace:
           at: /tmp/workspace
       - gcloud-auth:
@@ -120,6 +121,7 @@ jobs:
           name: write to bucket
           command: |
             #gcloud --quiet config set project $PROJECT
+            ls -lAh .
             gsutil ls gs://staging.$PROJECT.appspot.com
             gsutil cat gs://staging.$PROJECT.appspot.com/time-to-do-this.md
             gsutil -m rsync -r ./static gs://staging.$PROJECT.appspot.com/static
