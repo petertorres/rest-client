@@ -48,8 +48,8 @@ commands:
             source $BASH_ENV 
             set | grep -i "gcp_key"
             set | grep -i "google"
-            echo $GOOGLE_APPLICATION_CREDENTIALS
-            cat $GOOGLE_APPLICATION_CREDENTIALS
+            #echo $GOOGLE_APPLICATION_CREDENTIALS
+            #cat $GOOGLE_APPLICATION_CREDENTIALS
   gcloud-auth:
     <<: *parameters-environment
     steps:
@@ -122,7 +122,7 @@ jobs:
             gcloud --quiet config set project $PROJECT
             gsutil ls gs://staging.$PROJECT.appspot.com
             gsutil cat gs://staging.$PROJECT.appspot.com/time-to-do-this.md
-            gsutil -m rsync -r ./README.md gs://staging.$PROJECT.appspot.com/static
+            gsutil -m rsync -r ./static gs://staging.$PROJECT.appspot.com/static
             gsutil ls gs://staging.$PROJECT.appspot.com/static
 
   test:
