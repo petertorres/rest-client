@@ -65,7 +65,7 @@ commands:
             echo 'export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp-key.json' >> $BASH_ENV
 
 jobs:
- build:
+  build:
     executor: openjdk
     #parameters:
     # environment:
