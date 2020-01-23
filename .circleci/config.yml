@@ -24,6 +24,9 @@ executors:
       # Customize the JVM maximum heap limit
       JVM_OPTS: -Xmx3200m
       TERM: dumb
+  gcpsdk:
+    docker:
+      - image: google/cloud-sdk:271.0.0
 
 commands:
   eval-echo-env:
@@ -47,9 +50,22 @@ commands:
             set | grep -i "google"
             echo $GOOGLE_APPLICATION_CREDENTIALS
             cat $GOOGLE_APPLICATION_CREDENTIALS
+  gcloud-auth:
+    <<: *parameters-environment
+    steps:
+      - run:
+          name: authing to gcp
+          command: eval echo \$`echo << parameters.environment >> | tr 'a-z' 'A-Z'`_GCP_KEY | gcloud auth activate-service-account --key-file=-
+  gcloud-key:
+    steps:
+      - run:
+          name: set key to gcp
+          command: |
+            echo $DEV_GCP_KEY > /tmp/gcp-key.json
+            echo 'export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp-key.json' >> $BASH_ENV
 
 jobs:
-  build:
+ build:
     executor: openjdk
     #parameters:
     # environment:
@@ -91,6 +107,21 @@ jobs:
           paths:
             - ~/.gradlew
           key: v1-dependencies-{{ checksum "build.gradle" }}
+  deploy:
+    executor: gcpsdk
+    <<: *parameters-environment
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - gcloud-auth:
+          environment: << parameters.environment >>
+      - run:
+          name: write to bucket
+          command: |
+            gsutil ls gs://staging.$PROJECT.appspot.com
+            gsutil cat gs://staging.$PROJECT.appspot.com/time-to-do-this.md
+            gsutil -m rsync -r ./README.md gs://staging.$PROJECT.appspot.com/static
+            gsutil ls gs://staging.$PROJECT.appspot.com/static
 
   test:
     #parameters:
@@ -121,11 +152,14 @@ workflows:
       - build:
           name: dev-build
           environment: dev
+      - deploy:
+          name: rsync-to-bucket
+          environment: dev
       - test:
           name: dev-test
           environment: dev
           requires:
-              - dev-build
+              - rsync-to-bucket
       - release:
           name: release-to-dev
           environment: dev
