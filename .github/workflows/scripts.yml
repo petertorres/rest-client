@@ -31,22 +31,23 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const output = `#### CloudFormation Format and Style 🖌\`${{ steps.lint.outcome }}\`
-            #### CloudFormation Synth ⚙️\`${{ steps.synth.outcome }}\`
-            #### CloudFormation Diff 📖\`${{ steps.diff.outcome }}\`
-            
-            <details><summary>Show Diff</summary>
-            
-            \`\`\`${{steps.diff.outputs.stdout}}\`\`\`
-            
-            </details>
-            
-            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Workflow: \`${{ github.workflow }}\`*`;
+            #const output = `#### CloudFormation Format and Style 🖌\`${{ steps.lint.outcome }}\`
+            ##### CloudFormation Synth ⚙️\`${{ steps.synth.outcome }}\`
+            ##### CloudFormation Diff 📖\`${{ steps.diff.outcome }}\`
+            #
+            #<details><summary>Show Diff</summary>
+            #
+            #\`\`\`${{steps.diff.outputs.stdout}}\`\`\`
+            #
+            #</details>
+            #
+            #*Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Workflow: \`${{ github.workflow }}\`*`;
+            const output = 'Thanks for testing'
               
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '👋 Thanks for reporting! '
+              body: output
             })
 
