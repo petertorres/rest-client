@@ -31,7 +31,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const output = `#### CloudFormation Format and Style 🖌\`${{ steps.lint.outcome }}\`
+            return const output = `#### CloudFormation Format and Style 🖌\`${{ steps.lint.outcome }}\`
             #### CloudFormation Synth ⚙️\`${{ steps.synth.outcome }}\`
             #### CloudFormation Diff 📖\`${{ steps.diff.outcome }}\`
             
@@ -42,6 +42,7 @@ jobs:
             </details>
             
             *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Workflow: \`${{ github.workflow }}\`*`;
+
             #github.issues.createComment({
             #  issue_number: context.issue.number,
             #  owner: context.repo.owner,
