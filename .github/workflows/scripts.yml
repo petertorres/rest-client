@@ -16,12 +16,17 @@ jobs:
       - name: lint
         id: lint
         run: |
-          echo 'set up'
+          echo 'lint step'
+
+      - name: synth
+        id: synth
+        run: |
+          echo 'synth step'
 
       - name: Diff
         id: diff
         run: |
-          echo 'set up, too'
+          echo 'diff step'
       - uses: actions/github-script@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
