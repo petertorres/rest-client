@@ -1,0 +1,39 @@
+name: Running scripts
+
+on:
+  push:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Diff
+        id: diff
+      - uses: actions/github-script@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### CloudFormation Format and Style 🖌\`${{ steps.lint.outcome }}\`
+            #### CloudFormation Synth ⚙️\`${{ steps.synth.outcome }}\`
+            #### CloudFormation Diff 📖\`${{ steps.diff.outcome }}\`
+            
+            <details><summary>Show Diff</summary>
+            
+            \`\`\`${{steps.diff.outputs.stdout}}\`\`\`
+            
+            </details>
+            
+            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Workflow: \`${{ github.workflow }}\`*`;
+              
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+
+        
