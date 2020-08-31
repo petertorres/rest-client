@@ -30,13 +30,9 @@ jobs:
       - uses: actions/github-script@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          result-encoding: string
           script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'Thanks for reporting'
-            })
+            return "Return as string" 
           #script: |
             #const output = `#### CloudFormation Format and Style 🖌\`${{ steps.lint.outcome }}\`
             ##### CloudFormation Synth ⚙️\`${{ steps.synth.outcome }}\`
