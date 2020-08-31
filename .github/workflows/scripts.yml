@@ -42,12 +42,11 @@ jobs:
             #</details>
             #
             #*Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Workflow: \`${{ github.workflow }}\`*`;
-            const output = 'Thanks for testing'
               
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: output
+              body: 'thanks for testing'
             })
 
