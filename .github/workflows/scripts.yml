@@ -7,10 +7,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
+
+      - name: lint
+        id: lint
+        run: |
+          echo 'set up'
+
       - name: Diff
         id: diff
       - uses: actions/github-script@v2
